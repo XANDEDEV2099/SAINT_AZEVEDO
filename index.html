@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Saint Azevedo - Sistema de Gestão</title>
+
+    <!-- Tailwind CSS CDN -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    colors: {
+
+                        gold: {
+
+                            DEFAULT: '#D4AF37',
+
+                            light: '#F3E5AB',
+
+                            dark: '#AA8C2C',
+
+                        },
+
+                        deepblack: '#F9FAFB',
+
+                        cardblack: '#FFFFFF',
+
+                        borderblack: '#E5E7EB'
+
+                    },
+
+                    fontFamily: {
+
+                        sans: ['Inter', 'sans-serif'],
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+    <!-- FontAwesome for Icons -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+
+        body {
+
+            background-color: #FFFFFF;
+
+            color: #1F2937;
+
+        }
+
+        /* Custom scrollbar for luxury aesthetic */
+
+        ::-webkit-scrollbar {
+
+            width: 8px;
+
+            height: 8px;
+
+        }
+
+        ::-webkit-scrollbar-track {
+
+            background: #FFFFFF;
+
+        }
+
+        ::-webkit-scrollbar-thumb {
+
+            background: #D1D5DB;
+
+            border-radius: 4px;
+
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background: #D4AF37;
+
+        }
+
+    </style>
+
+
+    <style>
+        html { background: #FFFFFF; }
+        body { background-color: #FFFFFF; color: #1F2937; }
+        input, select, textarea { background-color: #FFFFFF; color: #1F2937; border-color: #D1D5DB; }
+        input::placeholder, textarea::placeholder { color: #9CA3AF; }
+        table { background-color: #FFFFFF; }
+        ::-webkit-scrollbar-track { background: #FFFFFF; }
+        ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 4px; }
+    </style>
+<style>
+
+    /* Ajustes responsivos para celulares e tablets */
+    * { box-sizing: border-box; }
+    html { width: 100%; overflow-x: hidden; scroll-padding-top: 100px; }
+    img, canvas, svg { max-width: 100%; height: auto; }
+    button, input, select, textarea { max-width: 100%; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    table { border-collapse: collapse; }
+    .overflow-x-auto { max-width: 100%; }
+
+    @media (max-width: 767px) {
+        html { scroll-padding-top: 135px; }
+        header > div {
+            height: auto !important;
+            min-height: 0 !important;
+            padding: 12px 14px !important;
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            align-items: center !important;
+        }
+        header > div > div:first-child {
+            min-width: 0;
+            flex: 1 1 100%;
+            gap: 10px !important;
+        }
+        header > div > div:first-child h1 {
+            font-size: 1.05rem !important;
+            line-height: 1.3;
+            letter-spacing: .08em !important;
+            overflow-wrap: anywhere;
+        }
+        header > div > div:first-child p { font-size: .7rem !important; }
+        header nav { display: none !important; }
+        header nav + div {
+            display: flex !important;
+            order: 2;
+            flex: 1 1 100%;
+            width: 100%;
+            gap: 5px !important;
+            justify-content: space-between;
+            border-top: 1px solid #E5E7EB;
+            padding-top: 7px;
+        }
+        header nav + div a {
+            flex: 1 1 0;
+            min-width: 0;
+            text-align: center;
+            padding: 8px 4px !important;
+            font-size: .78rem !important;
+            white-space: nowrap;
+        }
+        header > div > div:last-child {
+            display: none !important;
+        }
+        main {
+            padding: 18px 12px !important;
+            gap: 2.5rem !important;
+        }
+        main section { min-width: 0; scroll-margin-top: 135px !important; }
+        main section h2 {
+            font-size: 1.35rem !important;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
+        }
+        main section h3 { line-height: 1.35; }
+        .grid { min-width: 0; }
+        .grid[class*="grid-cols-"] {
+            grid-template-columns: minmax(0, 1fr) !important;
+        }
+        .flex.flex-col.md\:flex-row,
+        .flex.flex-col.sm\:flex-row {
+            align-items: stretch;
+        }
+        .rounded-xl, .rounded-2xl { min-width: 0; }
+        input, select, textarea {
+            width: 100%;
+            min-height: 44px;
+            font-size: 16px !important;
+        }
+        textarea { min-height: 100px; }
+        button {
+            min-height: 42px;
+            touch-action: manipulation;
+        }
+        form button, .flex button {
+            max-width: 100%;
+        }
+        .flex.gap-2, .flex.gap-3, .flex.gap-4 {
+            flex-wrap: wrap;
+        }
+        table {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            white-space: nowrap;
+            font-size: .8rem;
+        }
+        th, td { padding: 8px 10px !important; }
+        #toast {
+            left: 12px !important;
+            right: 12px !important;
+            bottom: 12px !important;
+            width: auto !important;
+            padding: 12px 14px !important;
+        }
+        .fixed.bottom-5.right-5 { left: 12px !important; right: 12px !important; }
+        [class*="text-3xl"], .text-3xl { font-size: 1.55rem !important; }
+        [class*="text-4xl"], .text-4xl { font-size: 1.8rem !important; }
+        .p-8 { padding: 1rem !important; }
+        .p-6 { padding: 1rem !important; }
+        .px-8 { padding-left: 1rem !important; padding-right: 1rem !important; }
+        .space-y-16 > :not([hidden]) ~ :not([hidden]) { margin-top: 2.5rem !important; }
+    }
+    @media (min-width: 768px) and (max-width: 1023px) {
+        main { padding-left: 20px !important; padding-right: 20px !important; }
+        header > div { gap: 8px; }
+        header nav a { padding-left: 8px !important; padding-right: 8px !important; }
+        header nav a { font-size: .8rem !important; }
+    }
+
+</style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans antialiased selection:bg-gold selection:text-black">
+
+
+
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+
+            <div class="flex items-center space-x-3">
+
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-gold-dark via-gold to-gold-light flex items-center justify-center text-black font-bold text-xl shadow-lg shadow-gold/20">
+
+                    SA
+
+                </div>
+
+                <div>
+
+                    <h1 class="text-xl font-bold tracking-widest text-gold uppercase">Saint Azevedo</h1>
+
+                    <p class="text-xs text-gray-600 tracking-wider">Sistema de Gestão</p>
+
+                </div>
+
+            </div>
+
+
+
+            <nav class="hidden md:flex space-x-1 lg:space-x-4">
+
+                <a href="#capital" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gold transition rounded-lg hover:bg-gray-100"><i class="fa-solid fa-wallet mr-2 text-gold"></i>Capital</a>
+
+                <a href="#lucro" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gold transition rounded-lg hover:bg-gray-100"><i class="fa-solid fa-chart-line mr-2 text-gold"></i>Lucratividade</a>
+
+                <a href="#precificacao" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gold transition rounded-lg hover:bg-gray-100"><i class="fa-solid fa-calculator mr-2 text-gold"></i>Precificação</a>
+
+                <a href="#relatorios" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gold transition rounded-lg hover:bg-gray-100"><i class="fa-solid fa-file-export mr-2 text-gold"></i>Exportação</a>
+
+            </nav>
+
+
+
+            <div class="hidden max-md:flex items-center gap-2 text-xs">
+
+                <a href="#capital" class="px-2 py-2 rounded-lg text-gray-700 hover:text-gold">Caixa</a>
+
+                <a href="#lucro" class="px-2 py-2 rounded-lg text-gray-700 hover:text-gold">Lucro</a>
+
+                <a href="#precificacao" class="px-2 py-2 rounded-lg text-gray-700 hover:text-gold">Preço</a>
+
+            </div>
+
+
+
+            <div class="flex items-center space-x-3">
+
+                <button onclick="exportarExcel()" class="hidden sm:inline-flex items-center px-3.5 py-2 text-xs font-semibold text-black bg-gold hover:bg-gold-light transition rounded-lg shadow-md shadow-gold/10">
+
+                    <i class="fa-solid fa-file-excel mr-1.5"></i> Excel
+
+                </button>
+
+                <button onclick="exportarWord()" class="hidden sm:inline-flex items-center px-3.5 py-2 text-xs font-semibold text-gold bg-white border border-gold/40 hover:bg-gold/10 transition rounded-lg">
+
+                    <i class="fa-solid fa-file-word mr-1.5"></i> Word
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+
+
+        <!-- Global Alert Toast -->
+
+        <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-white border border-gold text-gray-900 px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3">
+
+            <i id="toast-icon" class="fa-solid fa-circle-check text-gold text-lg"></i>
+
+            <span id="toast-message" class="text-sm font-medium">Ação realizada com sucesso!</span>
+
+        </div>
+
+
+
+        <!-- 1. SISTEMA DE CAPITAL -->
+
+        <section id="capital" class="scroll-mt-28 space-y-6">
+
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 pb-4">
+
+                <div>
+
+                    <h2 class="text-2xl font-bold tracking-wide text-gray-900 flex items-center">
+
+                        <span class="w-2.5 h-8 bg-gold rounded-full mr-3"></span>
+
+                        Controle de Capital & Caixa
+
+                    </h2>
+
+                    <p class="text-sm text-gray-600 mt-1">Gerencie entradas, saídas e acompanhe o saldo atual do negócio em tempo real.</p>
+
+                </div>
+
+                <div class="flex items-center gap-3">
+
+                    <div class="bg-white border border-gray-200 px-4 py-2 rounded-xl">
+
+                        <span class="text-xs text-gray-600 block">Saldo em Caixa</span>
+
+                        <span id="lbl-saldo-total" class="text-lg font-bold text-emerald-600">R$ 0,00</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Resumo Cards -->
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+
+                <div class="bg-white border border-gray-200 p-5 rounded-2xl relative overflow-hidden shadow-lg">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <p class="text-xs text-gray-600 uppercase tracking-wider">Total Entradas</p>
+
+                            <h3 id="lbl-total-entradas" class="text-2xl font-bold text-emerald-600 mt-1">R$ 0,00</h3>
+
+                        </div>
+
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl">
+
+                            <i class="fa-solid fa-arrow-trend-up"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="bg-white border border-gray-200 p-5 rounded-2xl relative overflow-hidden shadow-lg">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <p class="text-xs text-gray-600 uppercase tracking-wider">Total Saídas</p>
+
+                            <h3 id="lbl-total-saidas" class="text-2xl font-bold text-emerald-600 mt-1">R$ 0,00</h3>
+
+                        </div>
+
+                        <div class="w-12 h-12 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center text-xl">
+
+                            <i class="fa-solid fa-arrow-trend-down"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="bg-white border border-gray-200 p-5 rounded-2xl relative overflow-hidden shadow-lg">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <p class="text-xs text-gray-600 uppercase tracking-wider">Movimentações Registradas</p>
+
+                            <h3 id="lbl-qtd-transacoes" class="text-2xl font-bold text-gold mt-1">0</h3>
+
+                        </div>
+
+                        <div class="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center text-xl">
+
+                            <i class="fa-solid fa-receipt"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Formulário & Tabela de Capital -->
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- Formulário Nova Transação -->
+
+                <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-xl space-y-4 h-fit">
+
+                    <h3 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-3">Nova Movimentação</h3>
+
+                    <form id="form-capital" onsubmit="adicionarTransacao(event)" class="space-y-4">
+
+                        <div>
+
+                            <label class="block text-xs font-medium text-gray-600 mb-1">Descrição</label>
+
+                            <input type="text" id="cap-desc" required placeholder="Ex: Venda colar ouro, Fornecedor..." class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-gold transition">
+
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+
+                            <div>
+
+                                <label class="block text-xs font-medium text-gray-600 mb-1">Tipo</label>
+
+                                <select id="cap-tipo" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-gold transition">
+
+                                    <option value="Entrada">Entrada</option>
+
+                                    <option value="Saída">Saída</option>
+
+                                </select>
+
+                            </div>
+
+                            <div>
+
+                                <label class="block text-xs font-medium text-gray-600 mb-1">Valor (R$)</label>
+
+                                <input type="number" step="0.01" min="0.01" id="cap-valor" required placeholder="0,00" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-gold transition">
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-xs font-medium text-gray-600 mb-1">Data</label>
+
+                            <input type="date" id="cap-data" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-gold transition">
+
+                        </div>
+
+                        <button type="submit" class="w-full bg-gold hover:bg-gold-light text-black font-semibold py-3 rounded-xl transition shadow-lg shadow-gold/10 text-sm">
+
+                            Registrar Movimentação
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+
+                <!-- Lista de Transações -->
+
+                <div class="lg:col-span-2 bg-white border border-gray-200 rounded-2xl shadow-xl overflow-hidden flex flex-col">
+
+                    <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+
+                        <h3 class="text-lg font-semibold text-gray-900">Extrato de Caixa</h3>
+
+                        <button onclick="limparCapital()" class="text-xs text-rose-400 hover:text-rose-300 transition">Limpar Histórico</button>
+
+                    </div>
+
+                    <div class="overflow-x-auto flex-1">
+
+                        <table class="w-full text-left border-collapse">
+
+                            <thead>
+
+                                <tr class="bg-gray-50 text-gray-600 text-xs uppercase tracking-wider border-b border-gray-200">
+
+                                    <th class="py-3 px-6">Data</th>
+
+                                    <th class="py-3 px-6">Descrição</th>
+
+                                    <th class="py-3 px-6">Tipo</th>
+
+                                    <th class="py-3 px-6">Valor</th>
+
+                                    <th class="py-3 px-6 text-center">Ações</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="tabela-capital-body" class="divide-y divide-gray-200 text-sm">
+
+                                <!-- Injetado via JS -->
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- 2. SISTEMA DE LUCRO -->
+
+        <section id="lucro" class="scroll-mt-28 space-y-6">
+
+            <div class="border-b border-gray-200 pb-4">
+
+                <h2 class="text-2xl font-bold tracking-wide text-gray-900 flex items-center">
+
+                    <span class="w-2.5 h-8 bg-gold rounded-full mr-3"></span>
+
+                    Análise de Lucratividade por Produto
+
+                </h2>
+
+                <p class="text-sm text-gray-600 mt-1">Calcule o lucro unitário, margem percentual e retorno sobre cada acessório vendido.</p>
+
+            </div>
+
+
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- Cadastro de Produto / Venda -->
+
+                <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-xl space-y-4 h-fit">
+
+                    <h3 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-3">Registrar Produto/Venda</h3>
+
+                    <form id="form-lucro" onsubmit="adicionarLucro(event)" class="space-y-4">
+
+                        <div>
+
+                            <label class="block text-xs font-medium text-gray-600 mb-1">Nome do Acessório</label>
+
+                            <input type="text" id="lucro-nome" required placeholder="Ex: Pulseira Banhada a Ouro" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-gold transition">
+
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+
+                            <div>
+
+                                <label class="block text-xs font-medium text-gray-600 mb-1">Custo de Aquisição (R$)</label>
+
+                                <input type="number" step="0.01" min="0.01" id="lucro-custo" required placeholder="0,00" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-gold transition">
+
+                            </div>
+
+                            <div>
+
+                                <label class="block text-xs font-medium text-gray-600 mb-1">Preço de Venda (R$)</label>
+
+                                <input type="number" step="0.01" min="0.01" id="lucro-venda" required placeholder="0,00" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-gold transition">
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-xs font-medium text-gray-600 mb-1">Quantidade Vendida/Estoque</label>
+
+                            <input type="number" min="1" id="lucro-qtd" required value="1" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-gold transition">
+
+                        </div>
+
+                        <button type="submit" class="w-full bg-gold hover:bg-gold-light text-black font-semibold py-3 rounded-xl transition shadow-lg shadow-gold/10 text-sm">
+
+                            Analisar Lucratividade
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+
+                <!-- Tabela de Lucratividade -->
+
+                <div class="lg:col-span-2 bg-white border border-gray-200 rounded-2xl shadow-xl overflow-hidden flex flex-col">
+
+                    <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+
+                        <h3 class="text-lg font-semibold text-gray-900">Desempenho de Margens</h3>
+
+                        <div class="text-xs text-gray-600">Lucro Médio: <span id="lbl-lucro-medio" class="text-gold font-bold">0%</span></div>
+
+                    </div>
+
+                    <div class="overflow-x-auto flex-1">
+
+                        <table class="w-full text-left border-collapse">
+
+                            <thead>
+
+                                <tr class="bg-gray-50 text-gray-600 text-xs uppercase tracking-wider border-b border-gray-200">
+
+                                    <th class="py-3 px-6">Produto</th>
+
+                                    <th class="py-3 px-6">Custo Un.</th>
+
+                                    <th class="py-3 px-6">Venda Un.</th>
+
+                                    <th class="py-3 px-6">Lucro Un.</th>
+
+                                    <th class="py-3 px-6">Margem</th>
+
+                                    <th class="py-3 px-6 text-center">Ações</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="tabela-lucro-body" class="divide-y divide-gray-200 text-sm">
+
+                                <!-- Injetado via JS -->
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- 3. SISTEMA DE PRECIFICAÇÃO -->
+
+        <section id="precificacao" class="scroll-mt-28 space-y-6">
+
+            <div class="border-b border-gray-200 pb-4">
+
+                <h2 class="text-2xl font-bold tracking-wide text-gray-900 flex items-center">
+
+                    <span class="w-2.5 h-8 bg-gold rounded-full mr-3"></span>
+
+                    Calculadora de Precificação Ideal
+
+                </h2>
+
+                <p class="text-sm text-gray-600 mt-1">Descubra o preço de venda perfeito considerando custos, taxas de cartão e margem de lucro desejada.</p>
+
+            </div>
+
+
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                <!-- Simulador Form -->
+
+                <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-xl space-y-4">
+
+                    <h3 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-3">Parâmetros do Produto</h3>
+
+                    <div class="space-y-4">
+
+                        <div>
+
+                            <label class="block text-xs font-medium text-gray-600 mb-1">Custo de Fabricação / Aquisição (R$)</label>
+
+                            <input type="number" step="0.01" min="0" id="calc-custo" value="50.00" oninput="calcularPrecoIdeal()" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-gold transition">
+
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+
+                            <div>
+
+                                <label class="block text-xs font-medium text-gray-600 mb-1">Margem de Lucro Desejada (%)</label>
+
+                                <input type="number" step="1" min="1" id="calc-margem" value="100" oninput="calcularPrecoIdeal()" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-gold transition">
+
+                            </div>
+
+                            <div>
+
+                                <label class="block text-xs font-medium text-gray-600 mb-1">Taxas & Impostos / Cartão (%)</label>
+
+                                <input type="number" step="0.1" min="0" id="calc-taxas" value="5.0" oninput="calcularPrecoIdeal()" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-gold transition">
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-xs font-medium text-gray-600 mb-1">Custos Operacionais Fixos Rateados (R$)</label>
+
+                            <input type="number" step="0.01" min="0" id="calc-operacional" value="10.00" oninput="calcularPrecoIdeal()" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-gold transition">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Resultado Sugerido -->
+
+                <div class="bg-gradient-to-br from-cardblack to-deepblack border border-gold/40 p-6 rounded-2xl shadow-2xl flex flex-col justify-between relative overflow-hidden">
+
+                    <div class="absolute -right-10 -bottom-10 text-gold/5 text-9xl pointer-events-none">
+
+                        <i class="fa-solid fa-gem"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3 class="text-lg font-semibold text-gold border-b border-gray-200 pb-3 flex items-center justify-between">
+
+                            <span>Preço Sugerido Saint Azevedo</span>
+
+                            <i class="fa-solid fa-wand-magic-sparkles text-gold"></i>
+
+                        </h3>
+
+                        <div class="mt-6 space-y-4">
+
+                            <div class="bg-gray-50/60 border border-gray-200 p-4 rounded-xl flex items-center justify-between">
+
+                                <span class="text-sm text-gray-600">Preço de Venda Ideal:</span>
+
+                                <span id="res-preco-venda" class="text-2xl font-black text-gold">R$ 0,00</span>
+
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+
+                                <div class="bg-gray-50/40 p-3 rounded-xl border border-gray-200">
+
+                                    <span class="text-gray-600 block">Lucro Líquido Estimado</span>
+
+                                    <span id="res-lucro-val" class="text-emerald-700 font-bold text-base mt-0.5 block">R$ 0,00</span>
+
+                                </div>
+
+                                <div class="bg-gray-50/40 p-3 rounded-xl border border-gray-200">
+
+                                    <span class="text-gray-600 block">Markup Aplicado</span>
+
+                                    <span id="res-markup" class="text-gray-900 font-bold text-base mt-0.5 block">0.0x</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-gray-200">
+
+                        <button onclick="salvarProdutoPrecificado()" class="w-full bg-gold hover:bg-gold-light text-black font-semibold py-3 rounded-xl transition shadow-lg shadow-gold/10 text-sm flex items-center justify-center space-x-2">
+
+                            <i class="fa-solid fa-plus-circle"></i>
+
+                            <span>Adicionar à Tabela de Lucratividade</span>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- 4. SISTEMA DE EXPORTAÇÃO -->
+
+        <section id="relatorios" class="scroll-mt-28 space-y-6 pb-12">
+
+            <div class="border-b border-gray-200 pb-4">
+
+                <h2 class="text-2xl font-bold tracking-wide text-gray-900 flex items-center">
+
+                    <span class="w-2.5 h-8 bg-gold rounded-full mr-3"></span>
+
+                    Central de Relatórios & Exportação
+
+                </h2>
+
+                <p class="text-sm text-gray-600 mt-1">Baixe todos os dados consolidados do seu negócio em planilhas ou documentos formatados.</p>
+
+            </div>
+
+
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                <!-- Card Exportar Excel/CSV -->
+
+                <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-xl flex items-center justify-between">
+
+                    <div class="space-y-2">
+
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg">
+
+                            <i class="fa-solid fa-file-excel"></i>
+
+                        </div>
+
+                        <h3 class="text-lg font-semibold text-gray-900">Planilha Consolidada (CSV)</h3>
+
+                        <p class="text-xs text-gray-600">Compatível com Excel, Google Sheets e LibreOffice.</p>
+
+                    </div>
+
+                    <button onclick="exportarExcel()" class="bg-emerald-600 hover:bg-emerald-500 text-gray-900 font-semibold px-5 py-3 rounded-xl transition text-sm flex items-center space-x-2 shadow-lg">
+
+                        <i class="fa-solid fa-download"></i>
+
+                        <span>Baixar CSV</span>
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- Card Exportar Word -->
+
+                <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-xl flex items-center justify-between">
+
+                    <div class="space-y-2">
+
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-lg">
+
+                            <i class="fa-solid fa-file-word"></i>
+
+                        </div>
+
+                        <h3 class="text-lg font-semibold text-gray-900">Relatório Executivo (.doc)</h3>
+
+                        <p class="text-xs text-gray-600">Pronto para leitura e impressão em Microsoft Word.</p>
+
+                    </div>
+
+                    <button onclick="exportarWord()" class="bg-blue-600 hover:bg-blue-500 text-gray-900 font-semibold px-5 py-3 rounded-xl transition text-sm flex items-center space-x-2 shadow-lg">
+
+                        <i class="fa-solid fa-download"></i>
+
+                        <span>Baixar Word</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+    </main>
+
+
+
+    <script>
+
+        // Escapa texto antes de inseri-lo em HTML, evitando quebra da tabela e injeção de código.
+
+        function escaparHTML(valor) {
+
+            return String(valor ?? '').replace(/[&<>"']/g, caractere => ({
+
+                '&': '&amp;',
+
+                '<': '&lt;',
+
+                '>': '&gt;',
+
+                '"': '&quot;',
+
+                "'": '&#39;'
+
+            })[caractere]);
+
+        }
+
+
+
+        // Estado Global do Sistema
+
+        let dadosCapital = carregarLista('sa_capital', [
+
+            { id: 1, data: '2026-04-01', desc: 'Aporte Inicial de Caixa', tipo: 'Entrada', valor: 5000.00 },
+
+            { id: 2, data: '2026-04-05', desc: 'Compra de Lote de Anéis', tipo: 'Saída', valor: 1200.00 }
+
+        ]);
+
+
+
+        let dadosVendas = carregarLista('sa_vendas', [
+
+            { id: 1, nome: 'Colar Minimalista Prata', custo: 45.00, venda: 120.00, qtd: 3, lucro: 225.00, margem: 62.5 },
+
+            { id: 2, nome: 'Brinco Argola Cravejada', custo: 30.00, venda: 89.90, qtd: 5, lucro: 299.50, margem: 66.6 }
+
+        ]);
+
+
+
+        function carregarLista(chave, padrao) {
+
+            try {
+
+                const salvo = localStorage.getItem(chave);
+
+                if (salvo === null) return padrao;
+
+                const parsed = JSON.parse(salvo);
+
+                return Array.isArray(parsed) ? parsed : padrao;
+
+            } catch (erro) {
+
+                console.warn('Não foi possível ler os dados salvos:', erro);
+
+                return padrao;
+
+            }
+
+        }
+
+
+
+        // Data local no formato YYYY-MM-DD, sem deslocamento de fuso horário.
+
+        function dataLocalISO() {
+
+            const agora = new Date();
+
+            const ano = agora.getFullYear();
+
+            const mes = String(agora.getMonth() + 1).padStart(2, '0');
+
+            const dia = String(agora.getDate()).padStart(2, '0');
+
+            return `${ano}-${mes}-${dia}`;
+
+        }
+
+
+
+        // Inicialização ao carregar a página
+
+        window.onload = function() {
+
+            const hoje = dataLocalISO();
+
+            const dataInput = document.getElementById('cap-data');
+
+            if(dataInput) dataInput.value = hoje;
+
+
+
+            renderizarCapital();
+
+            renderizarLucro();
+
+            calcularPrecoIdeal();
+
+        };
+
+
+
+        // Sistema de Notificações Toast
+
+        function mostrarToast(mensagem, tipo = 'success') {
+
+            const toast = document.getElementById('toast');
+
+            const msg = document.getElementById('toast-message');
+
+            const icon = document.getElementById('toast-icon');
+
+
+
+            msg.textContent = mensagem;
+
+            if(tipo === 'error') {
+
+                icon.className = 'fa-solid fa-circle-exclamation text-rose-400 text-lg';
+
+                toast.style.borderColor = '#f87171';
+
+            } else {
+
+                icon.className = 'fa-solid fa-circle-check text-gold text-lg';
+
+                toast.style.borderColor = '#D4AF37';
+
+            }
+
+
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+
+            setTimeout(() => {
+
+                toast.classList.add('translate-y-20', 'opacity-0');
+
+            }, 3000);
+
+        }
+
+
+
+        // --- MÓDULO CAPITAL ---
+
+        function adicionarTransacao(e) {
+
+            if (e) e.preventDefault();
+
+            const form = document.getElementById('form-capital');
+
+            const desc = document.getElementById('cap-desc').value.trim();
+
+            const tipo = document.getElementById('cap-tipo').value;
+
+            const valor = Number(document.getElementById('cap-valor').value);
+
+            const data = document.getElementById('cap-data').value;
+
+
+
+            if (!desc || !data || !Number.isFinite(valor) || valor <= 0) {
+
+                mostrarToast('Preencha a descrição, a data e um valor maior que zero.', 'error');
+
+                return;
+
+            }
+
+            if (tipo !== 'Entrada' && tipo !== 'Saída') {
+
+                mostrarToast('Selecione um tipo de movimentação válido.', 'error');
+
+                return;
+
+            }
+
+
+
+            const nova = { id: Date.now(), data, desc, tipo, valor };
+
+            dadosCapital.unshift(nova);
+
+            try {
+
+                salvarDados();
+
+                renderizarCapital();
+
+                form.reset();
+
+                document.getElementById('cap-data').value = dataLocalISO();
+
+                mostrarToast('Movimentação registrada com sucesso!');
+
+            } catch (erro) {
+
+                dadosCapital = dadosCapital.filter(item => item.id !== nova.id);
+
+                console.error(erro);
+
+                mostrarToast('Não foi possível salvar. Verifique o armazenamento do navegador.', 'error');
+
+            }
+
+        }
+
+
+
+        function removerTransacao(id) {
+
+            const anterior = dadosCapital;
+
+            dadosCapital = dadosCapital.filter(item => item.id !== id);
+
+            if (!salvarDados()) { dadosCapital = anterior; return; }
+
+            renderizarCapital();
+
+            mostrarToast('Movimentação removida.');
+
+        }
+
+
+
+        function limparCapital() {
+
+            if(confirm('Deseja realmente limpar todo o histórico de capital?')) {
+
+                const anterior = dadosCapital;
+
+                dadosCapital = [];
+
+                if (!salvarDados()) { dadosCapital = anterior; return; }
+
+                renderizarCapital();
+
+                mostrarToast('Histórico de capital limpo.');
+
+            }
+
+        }
+
+
+
+        function renderizarCapital() {
+
+            const tbody = document.getElementById('tabela-capital-body');
+
+            tbody.innerHTML = '';
+
+
+
+            let totalEntradas = 0;
+
+            let totalSaidas = 0;
+
+
+
+            if (dadosCapital.length === 0) {
+
+                tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-gray-500">Nenhuma movimentação registrada.</td></tr>`;
+
+            } else {
+
+                dadosCapital.forEach(item => {
+
+                    if(item.tipo === 'Entrada') totalEntradas += item.valor;
+
+                    else totalSaidas += item.valor;
+
+
+
+                    const tr = document.createElement('tr');
+
+                    tr.className = 'hover:bg-gray-50 transition border-b border-gray-200';
+
+                    tr.innerHTML = `
+
+                        <td class="py-3 px-6 text-gray-700 text-xs">${item.data.split('-').reverse().join('/')}</td>
+
+                        <td class="py-3 px-6 font-medium text-gray-900">${escaparHTML(item.desc)}</td>
+
+                        <td class="py-3 px-6">
+
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${item.tipo === 'Entrada' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}">
+
+                                ${item.tipo}
+
+                            </span>
+
+                        </td>
+
+                        <td class="py-3 px-6 font-semibold ${item.tipo === 'Entrada' ? 'text-emerald-400' : 'text-rose-400'}">
+
+                            ${item.tipo === 'Entrada' ? '+' : '-'} R$ ${item.valor.toLocaleString('pt-BR', {minimumFractionDigits: 2})}
+
+                        </td>
+
+                        <td class="py-3 px-6 text-center">
+
+                            <button onclick="removerTransacao(${item.id})" class="text-gray-500 hover:text-rose-400 transition p-1"><i class="fa-solid fa-trash-can"></i></button>
+
+                        </td>
+
+                    `;
+
+                    tbody.appendChild(tr);
+
+                });
+
+            }
+
+
+
+            const saldo = totalEntradas - totalSaidas;
+
+            document.getElementById('lbl-total-entradas').textContent = `R$ ${totalEntradas.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+
+            document.getElementById('lbl-total-saidas').textContent = `R$ ${totalSaidas.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+
+            document.getElementById('lbl-qtd-transacoes').textContent = dadosCapital.length;
+
+
+
+            const lblSaldo = document.getElementById('lbl-saldo-total');
+
+            lblSaldo.textContent = `R$ ${saldo.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+
+            lblSaldo.className = `text-lg font-bold ${saldo >= 0 ? 'text-emerald-600' : 'text-emerald-600'}`;
+
+        }
+
+
+
+        // --- MÓDULO LUCRO ---
+
+        function adicionarLucro(e) {
+
+            e.preventDefault();
+
+            const nome = document.getElementById('lucro-nome').value;
+
+            const custo = parseFloat(document.getElementById('lucro-custo').value);
+
+            const venda = parseFloat(document.getElementById('lucro-venda').value);
+
+            const qtd = parseInt(document.getElementById('lucro-qtd').value);
+
+
+
+            if (!nome.trim() || !Number.isFinite(custo) || !Number.isFinite(venda) ||
+
+                !Number.isInteger(qtd) || custo <= 0 || venda <= 0 || qtd < 1) {
+
+                mostrarToast('Confira o nome, custo, preço de venda e quantidade.', 'error');
+
+                return;
+
+            }
+
+            if(venda <= custo) {
+
+                mostrarToast('O preço de venda precisa ser maior que o custo.', 'error');
+
+                return;
+
+            }
+
+
+
+            const lucroUnitario = venda - custo;
+
+            const lucroTotal = lucroUnitario * qtd;
+
+            const margem = (lucroUnitario / venda) * 100;
+
+
+
+            const novoItem = {
+
+                id: Date.now(),
+
+                nome,
+
+                custo,
+
+                venda,
+
+                qtd,
+
+                lucro: lucroTotal,
+
+                margem: isNaN(margem) ? 0 : margem
+
+            };
+
+
+
+            dadosVendas.unshift(novoItem);
+
+            if (!salvarDados()) {
+
+                dadosVendas = dadosVendas.filter(item => item.id !== novoItem.id);
+
+                return;
+
+            }
+
+            renderizarLucro();
+
+            document.getElementById('form-lucro').reset();
+
+            mostrarToast('Produto e lucratividade registrados!');
+
+        }
+
+
+
+        function removerLucro(id) {
+
+            const anterior = dadosVendas;
+
+            dadosVendas = dadosVendas.filter(item => item.id !== id);
+
+            if (!salvarDados()) { dadosVendas = anterior; return; }
+
+            renderizarLucro();
+
+            mostrarToast('Produto removido da análise.');
+
+        }
+
+
+
+        function renderizarLucro() {
+
+            const tbody = document.getElementById('tabela-lucro-body');
+
+            tbody.innerHTML = '';
+
+
+
+            let somaMargem = 0;
+
+
+
+            if (dadosVendas.length === 0) {
+
+                tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-gray-500">Nenhum produto cadastrado.</td></tr>`;
+
+                document.getElementById('lbl-lucro-medio').textContent = '0%';
+
+                return;
+
+            }
+
+
+
+            dadosVendas.forEach(item => {
+
+                somaMargem += item.margem;
+
+                const tr = document.createElement('tr');
+
+                tr.className = 'hover:bg-gray-50 transition border-b border-gray-200';
+
+                tr.innerHTML = `
+
+                    <td class="py-3 px-6 font-medium text-gray-900">${escaparHTML(item.nome)} <span class="text-xs text-gray-500">(${item.qtd} un.)</span></td>
+
+                    <td class="py-3 px-6 text-gray-700">R$ ${item.custo.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
+
+                    <td class="py-3 px-6 text-gray-700">R$ ${item.venda.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
+
+                    <td class="py-3 px-6 font-semibold text-emerald-700">R$ ${(item.venda - item.custo).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
+
+                    <td class="py-3 px-6">
+
+                        <span class="font-bold text-gold">${item.margem.toFixed(1)}%</span>
+
+                    </td>
+
+                    <td class="py-3 px-6 text-center">
+
+                        <button onclick="removerLucro(${item.id})" class="text-gray-500 hover:text-rose-400 transition p-1"><i class="fa-solid fa-trash-can"></i></button>
+
+                    </td>
+
+                `;
+
+                tbody.appendChild(tr);
+
+            });
+
+
+
+            const mediaMargem = somaMargem / dadosVendas.length;
+
+            document.getElementById('lbl-lucro-medio').textContent = `${mediaMargem.toFixed(1)}%`;
+
+        }
+
+
+
+        // --- MÓDULO PRECIFICAÇÃO ---
+
+        function calcularPrecoIdeal() {
+
+            const custo = parseFloat(document.getElementById('calc-custo').value) || 0;
+
+            const margemDesejada = parseFloat(document.getElementById('calc-margem').value) || 0;
+
+            const taxas = parseFloat(document.getElementById('calc-taxas').value) || 0;
+
+            const operacional = parseFloat(document.getElementById('calc-operacional').value) || 0;
+
+
+
+            // Margem desejada é calculada sobre o preço final; taxas incidem sobre a venda.
+
+            const percentualDisponivel = 1 - ((margemDesejada + taxas) / 100);
+
+            const precoEl = document.getElementById('res-preco-venda');
+
+            const lucroEl = document.getElementById('res-lucro-val');
+
+            const markupEl = document.getElementById('res-markup');
+
+
+
+            if (custo < 0 || operacional < 0 || margemDesejada < 0 || taxas < 0 ||
+
+                percentualDisponivel <= 0 || !Number.isFinite(percentualDisponivel)) {
+
+                precoEl.textContent = 'Revise os valores';
+
+                lucroEl.textContent = '—';
+
+                markupEl.textContent = '—';
+
+                window.ultimoCalculoPrecificacao = null;
+
+                return;
+
+            }
+
+
+
+            const precoVenda = (custo + operacional) / percentualDisponivel;
+
+            const lucroEstimado = precoVenda * (margemDesejada / 100);
+
+            const markup = custo > 0 ? precoVenda / custo : 0;
+
+
+
+            precoEl.textContent = `R$ ${precoVenda.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+            lucroEl.textContent = `R$ ${lucroEstimado.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+            markupEl.textContent = `${markup.toFixed(1)}x`;
+
+
+
+            window.ultimoCalculoPrecificacao = {
+
+                custo,
+
+                venda: precoVenda,
+
+                lucro: lucroEstimado,
+
+                margem: margemDesejada
+
+            };
+
+        }
+
+
+
+        function salvarProdutoPrecificado() {
+
+            if(!window.ultimoCalculoPrecificacao) return;
+
+            const calc = window.ultimoCalculoPrecificacao;
+
+            const nomeProd = prompt('Nome para este acessório precificado:', 'Novo Acessório Saint Azevedo');
+
+            if(!nomeProd) return;
+
+
+
+            const novoItem = {
+
+                id: Date.now(),
+
+                nome: nomeProd.trim(),
+
+                custo: calc.custo,
+
+                venda: calc.venda,
+
+                qtd: 1,
+
+                lucro: calc.lucro,
+
+                margem: calc.margem
+
+            };
+
+            if (!novoItem.nome) return;
+
+            dadosVendas.unshift(novoItem);
+
+            if (!salvarDados()) {
+
+                dadosVendas = dadosVendas.filter(item => item.id !== novoItem.id);
+
+                return;
+
+            }
+
+            renderizarLucro();
+
+            mostrarToast('Produto adicionado à tabela de lucratividade!');
+
+        }
+
+
+
+        // --- SALVAR LOCALSTORAGE ---
+
+        function salvarDados() {
+
+            // Salva as duas listas como uma operação: se falhar, tenta restaurar os valores anteriores.
+
+            let capitalAnterior = null;
+
+            let vendasAnterior = null;
+
+            try {
+
+                capitalAnterior = localStorage.getItem('sa_capital');
+
+                vendasAnterior = localStorage.getItem('sa_vendas');
+
+
+
+                localStorage.setItem('sa_capital', JSON.stringify(dadosCapital));
+
+                localStorage.setItem('sa_vendas', JSON.stringify(dadosVendas));
+
+                return true;
+
+            } catch (erro) {
+
+                console.error('Falha ao salvar no armazenamento do navegador:', erro);
+
+                try {
+
+                    if (capitalAnterior === null) localStorage.removeItem('sa_capital');
+
+                    else localStorage.setItem('sa_capital', capitalAnterior);
+
+                    if (vendasAnterior === null) localStorage.removeItem('sa_vendas');
+
+                    else localStorage.setItem('sa_vendas', vendasAnterior);
+
+                } catch (erroRestauracao) {
+
+                    console.warn('Não foi possível restaurar os dados anteriores:', erroRestauracao);
+
+                }
+
+                mostrarToast(
+
+                    erro && (erro.name === 'QuotaExceededError' || erro.name === 'NS_ERROR_DOM_QUOTA_REACHED')
+
+                        ? 'Armazenamento cheio. Exporte os dados e libere espaço no navegador.'
+
+                        : 'O navegador bloqueou o salvamento. Abra o site em uma página HTTP/HTTPS.',
+
+                    'error'
+
+                );
+
+                return false;
+
+            }
+
+        }
+
+
+
+        // --- MÓDULO EXPORTAÇÃO (Excel/CSV e Word) ---
+
+        function exportarExcel() {
+
+            let csvContent = "\ufeff";
+
+            csvContent += "--- RELATORIO SAINT AZEVEDO ---\r\n\r\n";
+
+            csvContent += "MOVIMENTACOES DE CAPITAL\n";
+
+            csvContent += "Data;Descricao;Tipo;Valor\n";
+
+
+
+            dadosCapital.forEach(item => {
+
+                csvContent += `${item.data};"${item.desc}";${item.tipo};${item.valor}\n`;
+
+            });
+
+
+
+            csvContent += "\nLUCRATIVIDADE DE PRODUTOS\n";
+
+            csvContent += "Produto;Custo;Venda;Quantidade;Lucro Total;Margem (%)\n";
+
+
+
+            dadosVendas.forEach(item => {
+
+                csvContent += `"${item.nome}";${item.custo};${item.venda};${item.qtd};${item.lucro};${item.margem.toFixed(2)}\n`;
+
+            });
+
+
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+
+            link.href = url;
+
+            link.download = `relatorio_saint_azevedo_${dataLocalISO()}.csv`;
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            link.remove();
+
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+            mostrarToast('Planilha CSV exportada com sucesso!');
+
+        }
+
+
+
+        function exportarWord() {
+
+            let htmlContent = `
+
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+
+                <head><meta charset='utf-8'><title>Relatório Saint Azevedo</title></head>
+
+                <body style='font-family: Arial, sans-serif; color: #333;'>
+
+                    <h1 style='color: #D4AF37; text-align: center; border-bottom: 2px solid #D4AF37; padding-bottom: 10px;'>Saint Azevedo - Relatório de Gestão</h1>
+
+                    <p style='text-align: center; font-size: 12px; color: #666;'>Gerado em: ${new Date().toLocaleDateString('pt-BR')}</p>
+
+
+
+                    <h2 style='color: #111; margin-top: 30px;'>1. Fluxo de Capital & Caixa</h2>
+
+                    <table border='1' cellspacing='0' cellpadding='6' style='width:100%; border-collapse: collapse; border-color: #ddd; font-size: 12px;'>
+
+                        <tr style='background: #f4f4f4;'><th>Data</th><th>Descrição</th><th>Tipo</th><th>Valor</th></tr>
+
+                        ${dadosCapital.map(i => `<tr><td>${i.data}</td><td>${escaparHTML(i.desc)}</td><td>${i.tipo}</td><td>R$ ${i.valor.toFixed(2)}</td></tr>`).join('')}
+
+                    </table>
+
+
+
+                    <h2 style='color: #111; margin-top: 30px;'>2. Lucratividade por Produto</h2>
+
+                    <table border='1' cellspacing='0' cellpadding='6' style='width:100%; border-collapse: collapse; border-color: #ddd; font-size: 12px;'>
+
+                        <tr style='background: #f4f4f4;'><th>Produto</th><th>Custo Un.</th><th>Venda Un.</th><th>Qtd</th><th>Margem</th></tr>
+
+                        ${dadosVendas.map(i => `<tr><td>${escaparHTML(i.nome)}</td><td>R$ ${i.custo.toFixed(2)}</td><td>R$ ${i.venda.toFixed(2)}</td><td>${i.qtd}</td><td>${i.margem.toFixed(1)}%</td></tr>`).join('')}
+
+                    </table>
+
+                </body>
+
+                </html>
+
+            `;
+
+
+
+            let blob = new Blob(['\ufeff' + htmlContent], { type: 'application/msword' });
+
+            let url = URL.createObjectURL(blob);
+
+            let link = document.createElement('a');
+
+            link.href = url;
+
+            link.download = `relatorio_saint_azevedo_${dataLocalISO()}.doc`;
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            document.body.removeChild(link);
+
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+            mostrarToast('Documento Word (.doc) exportado com sucesso!');
+
+        }
+
+    </script>
+
+</body>
+
+</html>
